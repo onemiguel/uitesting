@@ -1,11 +1,13 @@
 import { Component, OnInit } from "@angular/core";
+import { Location } from "@angular/common";
 
 @Component({
   selector: 'demo-item-2',
   template: 
   '<p>Timestamp component created: {{timestamp}}</p>' +
   '<p>Timestamp now: {{ realtimenow }}</p>' +
-  '<p>Component Age: {{componentAge}}</p>' 
+  '<p>Component Age: {{componentAge}}</p>' +
+  '<p><button mat-stroked-button (click)="location.back()">Close Dialog</button></p>'
 })
 export class DemoItem2 implements OnInit {
   public timestamp:Date;
@@ -16,6 +18,7 @@ export class DemoItem2 implements OnInit {
     let now:Date = new Date();
     return `${now.getTime() - this.timestamp.getTime()}`;
   }
+  constructor(public location: Location) {}
   ngOnInit(): void {
     this.timestamp = new Date(); // Set it to now
   }

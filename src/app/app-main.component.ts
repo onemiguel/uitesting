@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { routerTransition } from './app-main.animation';
 
 @Component({
@@ -11,8 +11,18 @@ import { routerTransition } from './app-main.animation';
 export class AppMainComponent implements OnInit {
   ngOnInit(): void {}
 
+  public links:{ name:string, path:string }[] = [];
+  constructor(private router:Router) { 
+    router.config.forEach(c=>{
+      if(c.data?.name) {
+        this.links.push({ name: c.data.name, path: `/${c.path}`});
+      }
+    });
+  }
+
   getState(routerOutlet: RouterOutlet) {
-    return routerOutlet.activatedRouteData.state;
+    console.log(`getState returned ${routerOutlet.activatedRouteData.type}`);
+    return routerOutlet.activatedRouteData.type;
   }
 }
 

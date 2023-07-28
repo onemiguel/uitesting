@@ -1,17 +1,22 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy } from "@angular/router";
+import { ActivatedRouteSnapshot, DetachedRouteHandle, Route, RouteReuseStrategy, Router } from "@angular/router";
 import { map, Observable } from "rxjs";
 
 @Component({
   selector: 'alternative-to-dialogs-poc',
-  templateUrl: 'alternativeToDialogsPoc.html'
+  templateUrl: 'alternativeToDialogsPoc.html',
+  styleUrls: [ 'app-main.component.css']
 })
 export class AlternativeToDialogsPoc implements OnInit {
   
-  constructor(private dialog:MatDialog) {}
+  constructor(private dialog:MatDialog, private router:Router) {}
   
   canDeactivate() : Observable<boolean> | boolean {
+    if(this.openingDialog) {
+      this.openingDialog = false;
+      return true;
+    }
     const confirmDialog = this.dialog.open(ExitConfirmationDialog, { disableClose: true});
     return confirmDialog.afterClosed().pipe(
       map(response => {
@@ -25,7 +30,7 @@ export class AlternativeToDialogsPoc implements OnInit {
   }
 
   public timestamp:Date;
-
+  private openingDialog:boolean = false;
   public get realtimenow(): string {
     return `${(new Date()).getTime()}`;
   }
@@ -35,6 +40,11 @@ export class AlternativeToDialogsPoc implements OnInit {
   }
   ngOnInit(): void {
     this.timestamp = new Date(); // Set it to now
+  }
+
+  openDialog(link:string) : void {
+    this.openingDialog = true;
+    this.router.navigateByUrl(link);
   }
 }
 
@@ -47,20 +57,43 @@ export class AlternativeToDialogsPoc implements OnInit {
 export class ExitConfirmationDialog {}
 
 export class PocReuseStrategy implements RouteReuseStrategy {
-  shouldDetach(route: ActivatedRouteSnapshot): boolean {
-    throw new Error("Method not implemented.");
+  private handlers: Map<Route, DetachedRouteHandle> = new Map();
+
+  constructor() { }
+
+  public shouldDetach(_route: ActivatedRouteSnapshot): boolean {
+    if(_route.data.save) {
+      return true; // Only save the snapshot if it is marked as such
+    } else {
+      return false;
+    }
   }
-  store(route: ActivatedRouteSnapshot,handle: DetachedRouteHandle|null): void {
-    throw new Error("Method not implemented.");
+
+  public store(
+    route: ActivatedRouteSnapshot,
+    handle: DetachedRouteHandle
+  ): void {
+    if (!route.routeConfig) return;
+    this.handlers.set(route.routeConfig, handle);
   }
-  shouldAttach(route: ActivatedRouteSnapshot): boolean {
-    throw new Error("Method not implemented.");
+
+  public shouldAttach(route: ActivatedRouteSnapshot): boolean {
+    return !!route.routeConfig && !!this.handlers.get(route.routeConfig);
   }
-  retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle|null {
-    throw new Error("Method not implemented.");
+
+  public retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle | null {
+    if (!route.routeConfig || !this.handlers.has(route.routeConfig)) return null;
+    return this.handlers.get(route.routeConfig)!;
   }
-  shouldReuseRoute(future: ActivatedRouteSnapshot,curr: ActivatedRouteSnapshot): boolean {
-    throw new Error("Method not implemented.");
+
+  public shouldReuseRoute(
+    future: ActivatedRouteSnapshot,
+    curr: ActivatedRouteSnapshot
+  ): boolean {
+    if(future.data?.type == 'dialog') {
+      curr.data['save'] = true;
+    }
+    return future.routeConfig === curr.routeConfig;
   }
 
 }

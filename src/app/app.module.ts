@@ -40,7 +40,7 @@ import { DemoItem2 } from './alternativeDialogComponents/demoitem2';
     AppRoutingModule,
   ],
   providers: [
-    //{ provide: RouteReuseStrategy, useClass: PocReuseStrategy }
+    { provide: RouteReuseStrategy, useClass: PocReuseStrategy },
     CanDeactivateGuard
   ],
   bootstrap: [AppMainComponent],

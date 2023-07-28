@@ -1,7 +1,16 @@
 <div>
-  <p>Time component created: {{timestamp}}</p>
-  <p>Timestamp now: {{ realtimenow }}</p>
-  <p>Component Age: {{componentAge}}</p>
-  <p>To exit this POC, click on another link above.  A confirmation dialog will prompt you.</p>
-  <p><a routerLink = "/demoitem1" routerLinkActive="active" ariaCurrentWhenActive="page">Click Here to go to the demo page 1</a>.
+  <p>Time component created: {{timestamp}} (this should not change when opening the 'dialogs')</p>
+  <p>Component Age: {{componentAge}} (this value should keep increasing as the component ages)</p>
+  <p>To exit this POC, click on another link above.  A confirmation dialog will prompt you ONLY if you are existing the component.</p>
+
+  <p>
+  <mat-form-field appearance="fill">
+    <mat-label>Enter a Value Here</mat-label>
+    <input matInput>
+    <mat-hint>This value should not disappear when opening dialogs</mat-hint>
+  </mat-form-field>
+  </p>
+
+  <p><button mat-stroked-button (click)="openDialog('/demoitem1')">Open Dialog 1</button> </p>
+  <p><button mat-stroked-button (click)="openDialog('/demoitem2')">Open Dialog 2</button> </p>
 </div>
