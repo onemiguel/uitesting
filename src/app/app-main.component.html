@@ -1,0 +1,33 @@
+<h1>mipa UI POC Stackblitz</h1>
+<!-- This nav gives you links to click, which tells the router which route to use (defined in the routes constant in  AppRoutingModule) -->
+<nav>
+  <ul>
+    <li>
+      <a
+        routerLink="/schedulerpoc"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        >Scheduler POC</a
+      >
+    </li>
+    <li>
+      <a
+        routerLink="/pipelinepoc"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        >Pipeline POC</a
+      >
+    </li>
+    <li>
+      <a routerLink = "/alternativedialogpoc"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page">
+      Alternative To Dialogs POC</a>
+  </ul>
+</nav>
+
+<hr />
+<!-- The routed views render in the <router-outlet>-->
+<div [@routerTransition]="getState(routerOutlet)">
+  <router-outlet #routerOutlet="outlet"></router-outlet>
+</div>

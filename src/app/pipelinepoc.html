@@ -1,0 +1,76 @@
+<div>
+
+  <mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input
+      matInput
+      (keyup)="applyTableFilter($event)"
+      placeholder=""
+      name="filterValues"
+      aria-label="filter"
+      #input
+    />
+  </mat-form-field>
+  <table mat-table [dataSource]="dataSource" matSort #dataSort>
+    <ng-container
+      *ngFor="let column of TableDefinition.tableColumns"
+      [matColumnDef]="column.columnDef"
+    >
+      <th mat-header-cell *matHeaderCellDef>{{column.header}}</th>
+      <td mat-cell *matCellDef="let row">
+        <div [ngSwitch]="column.columnDef">
+          <div *ngSwitchCase="'itemDevStatus'">
+            <button mat-flat-button [class]="'statusButton ' + getClassName(column.cell(row))">{{renderStatusName(column.cell(row))}}</button>
+            <button mat-icon-button [matMenuTriggerFor]="devMenu" aria-label="dev menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #devMenu>
+              <button mat-menu-item>
+                <mat-icon>sync</mat-icon>
+                <span>Reset</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+            </mat-menu>
+  
+          </div>
+          <div *ngSwitchCase="'itemProdStatus'">
+            <button mat-flat-button [class]="'statusButton ' + getClassName(column.cell(row))" [matBadge]="row.publishEnabled ? '!' : ''" matBadgeColor="warn" [matTooltip]="row.publishEnabled ? 'Publish needed' : ''" matTooltipPosition="after">{{renderStatusName(column.cell(row))}}</button> 
+            <button mat-icon-button [matMenuTriggerFor]="prodMenu" aria-label="prod menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #prodMenu>
+              <button mat-menu-item>
+                <mat-icon>restart_alt</mat-icon>
+                <span>Revert</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>info</mat-icon>
+                <span>More Info</span>
+              </button>
+            </mat-menu>  
+          </div>
+          <div *ngSwitchCase="'publishEnabled'">
+            <button mat-stroked-button [class]="'statusButton '" [disabled] = "column.cell(row)">Publish <mat-icon [inline]="true">cloud_upload</mat-icon></button>
+          </div>
+          <div *ngSwitchDefault>{{column.cell(row)}}</div>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      [tabindex]="0"
+      (keydown)="tableKeydown($event, row)"
+      class="data-row"
+      *matRowDef="let row; columns: displayedColumns;"
+    ></tr>
+  </table>
+  <!-- <mat-paginator #myJobsPaginator [pageSizeOptions]="[10,25,50,100]" showFirstLastButtons></mat-paginator> -->
+</div>
+
+<ng-template #statusBox let-data="data" let-columnName="colName">
+  
+</ng-template>

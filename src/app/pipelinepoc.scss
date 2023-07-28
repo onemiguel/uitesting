@@ -1,0 +1,52 @@
+/* CSS for data tables */
+table {
+  width: 100%;
+}
+
+// tr.data-row {
+//   cursor: pointer;
+// }
+
+// tr.data-row:hover {
+//   background: rgb(0, 122, 204);
+//   color: #fefefe;
+// }
+
+// tr.data-row:focus {
+//   background: rgb(0, 122, 205);
+// }
+
+/* Filler is used to fill space between left and right */
+.filler {
+  flex: 1 1 auto;
+}
+
+.statusButton {
+  width: 100px;
+}
+
+.synced {
+  background-color: darkgreen;
+  color:azure;
+}
+
+.deleted {
+  background-color: gray;
+  color:azure;
+  text-decoration: line-through;
+}
+
+.modified {
+  background-color: orange;
+  color: azure;
+}
+
+.inprogress {
+  background-color: darkgray;
+  color:azure;
+}
+
+.notfound {
+  background-color: beige;
+  color: darkslategrey;
+}
