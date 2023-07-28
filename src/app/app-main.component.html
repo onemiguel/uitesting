@@ -2,27 +2,7 @@
 <!-- This nav gives you links to click, which tells the router which route to use (defined in the routes constant in  AppRoutingModule) -->
 <nav>
   <ul>
-    <li>
-      <a
-        routerLink="/schedulerpoc"
-        routerLinkActive="active"
-        ariaCurrentWhenActive="page"
-        >Scheduler POC</a
-      >
-    </li>
-    <li>
-      <a
-        routerLink="/pipelinepoc"
-        routerLinkActive="active"
-        ariaCurrentWhenActive="page"
-        >Pipeline POC</a
-      >
-    </li>
-    <li>
-      <a routerLink = "/alternativedialogpoc"
-      routerLinkActive="active"
-      ariaCurrentWhenActive="page">
-      Alternative To Dialogs POC</a>
+    <li *ngFor="let item of links"><a class="link" routerLink="{{item.path}}" routerLinkActive="active" ariaCurrentWhenActive="page">{{item.name}}</a></li> 
   </ul>
 </nav>
 

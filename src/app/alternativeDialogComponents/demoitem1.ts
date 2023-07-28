@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Location } from "@angular/common";
 
 @Component({
   selector: 'demo-item-1',
@@ -6,7 +7,7 @@ import { Component, OnInit } from "@angular/core";
   '<p>Timestamp component created: {{timestamp}}</p>' +
   '<p>Timestamp now: {{ realtimenow }}</p>' +
   '<p>Component Age: {{componentAge}}</p>' +
-  '<p><a routerLink = "/demoitem2" routerLinkActive="active" ariaCurrentWhenActive="page">Click here to go to the next item</a></p>'
+  '<p><button mat-stroked-button (click)="location.back()">Close Dialog</button></p>'
 })
 export class DemoItem1 implements OnInit {
   public timestamp:Date;
@@ -19,6 +20,8 @@ export class DemoItem1 implements OnInit {
     let now:Date = new Date();
     return `${now.getTime() - this.timestamp.getTime()}`;
   }
+
+  constructor(public location: Location) {}
   ngOnInit(): void {
     this.timestamp = new Date(); // Set it to now
   }

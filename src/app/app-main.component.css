@@ -1,3 +1,20 @@
 mat-button-toggle-group {
   margin-left: 12px;
 }
+
+.link {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+  background-color: aquamarine;
+}
+
+.active {
+  background-color: aqua;
+  font-size:larger;
+}
+
+

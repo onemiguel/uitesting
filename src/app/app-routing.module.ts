@@ -27,12 +27,11 @@ export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate>
 
 const routes: Routes = [
   { path: '', component: AppHomePage },
-  { path: 'schedulerpoc', component: SchedulerPoc },
-  { path: 'pipelinepoc', component: PipelinePoc },
-  { path: 'alternativedialogpoc', component: AlternativeToDialogsPoc, //canDeactivate: [CanDeactivateGuard] 
-    },
-  { path: 'demoitem1', component: DemoItem1, data: {state: 'demo1'} },
-  { path: 'demoitem2', component: DemoItem2, data: {state: 'demo2'} },
+  { path: 'schedulerpoc', component: SchedulerPoc, data: { name: 'Detection Scheduler POC'} },
+  { path: 'pipelinepoc', component: PipelinePoc, data: { name: 'Dev/Prod Pipeline POC'} },
+  { path: 'alternativedialogpoc', component: AlternativeToDialogsPoc, canDeactivate: [CanDeactivateGuard], data: { name: 'Alternative to Dialogs POC'} },
+  { path: 'demoitem1', component: DemoItem1, data: {type:'dialog'} },
+  { path: 'demoitem2', component: DemoItem2, data: {type:'dialog'} },
   { path: '**', component: NotFoundComponent },
 ];
 
