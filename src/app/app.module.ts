@@ -16,6 +16,7 @@ import { AlternativeToDialogsPoc, ExitConfirmationDialog, PocReuseStrategy } fro
 import { RouteReuseStrategy } from '@angular/router';
 import { DemoItem1 } from './alternativeDialogComponents/demoitem1';
 import { DemoItem2 } from './alternativeDialogComponents/demoitem2';
+import { BreadCrumbPocHome } from './breadcrumbpoc/home';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { DemoItem2 } from './alternativeDialogComponents/demoitem2';
     AlternativeToDialogsPoc,
     DemoItem1,
     DemoItem2,
-    ExitConfirmationDialog 
+    ExitConfirmationDialog,
+    BreadCrumbPocHome
   ],
   imports: [
     BrowserAnimationsModule,

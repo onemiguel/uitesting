@@ -22,7 +22,7 @@ export class AppMainComponent implements OnInit {
 
   getState(routerOutlet: RouterOutlet) {
     console.log(`getState returned ${routerOutlet.activatedRouteData.type}`);
-    return routerOutlet.activatedRouteData.type;
+    return routerOutlet.activatedRouteData.type; 
   }
 }
 

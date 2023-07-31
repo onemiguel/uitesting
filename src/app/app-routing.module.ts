@@ -12,6 +12,7 @@ import { SchedulerPoc } from './schdulerpoc';
 import { Injectable } from "@angular/core";
 import { CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs";
+import { BreadCrumbPocHome } from './breadcrumbpoc/home';
 
 export interface CanComponentDeactivate {
     canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean;
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'alternativedialogpoc', component: AlternativeToDialogsPoc, canDeactivate: [CanDeactivateGuard], data: { name: 'Alternative to Dialogs POC'} },
   { path: 'demoitem1', component: DemoItem1, data: {type:'dialog'} },
   { path: 'demoitem2', component: DemoItem2, data: {type:'dialog'} },
+  { path: 'breadcrumb', component: BreadCrumbPocHome, data: { name: 'BreadCrumb POC'}},
   { path: '**', component: NotFoundComponent },
 ];
 
